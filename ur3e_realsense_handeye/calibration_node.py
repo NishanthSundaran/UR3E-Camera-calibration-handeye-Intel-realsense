@@ -203,7 +203,7 @@ class HandeyeCalibrationNode(Node):
         log = self.get_logger().info
         log("")
         log(sep)
-        log(f"  CALIBRATION RESULT — best method: {r.name}")
+        log(f"  CALIBRATION RESULT (best method: {r.name})")
         log(sep)
         log(f"  Consistency: {r.consistency_mm:.1f} mm")
         log("  Camera position in base_link frame:")

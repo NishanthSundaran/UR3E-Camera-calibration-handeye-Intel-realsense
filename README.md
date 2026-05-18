@@ -4,9 +4,9 @@ ROS 2 Humble package that recovers the rigid transform from a **fixed Intel
 RealSense D435i** to a **Universal Robots UR3e** base frame, using a ChArUco
 board attached to the robot end-effector.
 
-It runs **eight solvers** on the same captured sample set — five OpenCV
+It runs **eight solvers** on the same captured sample set (five OpenCV
 hand-eye methods, two robot-world hand-eye methods, and a 12-DOF
-non-linear refinement — and picks the one with the lowest per-sample
+non-linear refinement) and picks the one with the lowest per-sample
 camera-position consistency. A typical 12-sample calibration converges to
 **< 10 mm consistency** with a varied set of board poses.
 
@@ -23,7 +23,7 @@ single transform. That works, but a few pitfalls bite in practice:
 - A single solver can return a degenerate result on noisy data and you
   won't notice without an independent check.
 - The OpenCV API for eye-in-hand vs. eye-to-hand is the same call with
-  inputs swapped — easy to get wrong silently.
+  inputs swapped, which is easy to get wrong silently.
 - ChArUco detection drops out the moment a marker is occluded; without a
   fallback you lose entire samples.
 - The final TF is needed in two forms (quaternion for
@@ -79,7 +79,7 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-> `numpy` must be **<2** and `opencv-python` **<4.11** — ROS 2 Humble's
+> `numpy` must be **<2** and `opencv-python` **<4.11**. ROS 2 Humble's
 > `cv_bridge` segfaults under newer numpy/OpenCV.
 
 ## Usage
@@ -149,7 +149,7 @@ After pressing **`s`**, the node prints a result block like:
 
 ```
 ======================================================================
-  CALIBRATION RESULT — best method: NL-Optim
+  CALIBRATION RESULT (best method: NL-Optim)
 ======================================================================
   Consistency: 4.2 mm
   Camera position in base_link frame:
@@ -200,7 +200,7 @@ how they compare on your data.
 | `NL-Optim`    | This package (scipy LM)             | 12-DOF refinement, seeded with the best linear result; usually wins.    |
 
 The "winner" is whichever solver produces the smallest per-sample
-camera-position stddev across all captured samples — i.e. the most
+camera-position stddev across all captured samples, i.e. the most
 *internally consistent* answer, not necessarily the one with the lowest
 single-sample reprojection error.
 
@@ -210,7 +210,7 @@ Apache 2.0. See LICENSE.
 
 ## Author
 
-**Nishanth Sundaran** — sundharnishanth@gmail.com
+**Nishanth Sundaran** ([sundharnishanth@gmail.com](mailto:sundharnishanth@gmail.com))
 
 Originally written as part of an MSc thesis on force-feedback HRI on a
 UR3e; extracted into this standalone package for reuse.
