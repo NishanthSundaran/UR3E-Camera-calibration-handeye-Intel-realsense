@@ -212,5 +212,5 @@ Apache 2.0. See LICENSE.
 
 **Nishanth Sundaran** ([sundharnishanth@gmail.com](mailto:sundharnishanth@gmail.com))
 
-Originally written as part of an MSc thesis on force-feedback HRI on a
+Originally written as part of an M.Eng thesis on force-feedback HRI on a
 UR3e; extracted into this standalone package for reuse.
